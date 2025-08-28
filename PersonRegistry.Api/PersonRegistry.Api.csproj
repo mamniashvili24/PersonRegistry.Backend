@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\PersonRegistry.Application\PersonRegistry.Application.csproj" />
+      <ProjectReference Include="..\PersonRegistry.Persistence\PersonRegistry.Persistence.csproj" />
     </ItemGroup>
 
 </Project>

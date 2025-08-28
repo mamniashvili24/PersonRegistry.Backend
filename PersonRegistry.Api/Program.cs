@@ -1,4 +1,5 @@
 using PersonRegistry.Application;
+using PersonRegistry.Persistence;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +8,9 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-builder.Services.AddApplication();
+builder.Services
+    .AddApplication()
+    .AddPersistence();
 
 WebApplication app = builder.Build();
 

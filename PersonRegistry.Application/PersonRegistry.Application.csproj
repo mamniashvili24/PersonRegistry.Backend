@@ -17,4 +17,9 @@
       <PackageReference Include="MediatR" Version="13.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="Microsoft.AspNetCore.Http.Features">
+      </Reference>
+    </ItemGroup>
+
 </Project>
