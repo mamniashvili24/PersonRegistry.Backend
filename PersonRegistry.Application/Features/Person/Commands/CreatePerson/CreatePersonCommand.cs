@@ -22,7 +22,6 @@ public class CreatePersonCommand : IRequest, IMap
         profile.CreateMap<CreatePersonCommand, Domain.Entities.Person>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.City, opt => opt.Ignore())
-            .ForMember(dest => dest.RelatedPersons, opt => opt.Ignore())
             .ForMember(dest => dest.Image, opt => opt.MapFrom(src => string.Empty));
         
         profile.CreateMap<PhoneNumber, Domain.Entities.PhoneNumber>();

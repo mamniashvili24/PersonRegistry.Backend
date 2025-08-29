@@ -20,7 +20,7 @@ public class CreatePersonCommandHandler : IRequestHandler<CreatePersonCommand>
     }
     public async Task Handle(CreatePersonCommand request, CancellationToken cancellationToken)
     {
-        Person person = mapper.Map<Person>(request);
+        Person person = this.mapper.Map<Person>(request);
         await this.personRepository.AddAsync(person, cancellationToken);
     }
 }

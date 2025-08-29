@@ -13,6 +13,8 @@ public class Person
     public required DateOnly DateOfBirth { get; set; }
     public required int CityId { get; set; }
     public required City City { get; set; }
-    public ICollection<Person> RelatedPersons { get; set; } = new List<Person>();
+    public ICollection<PersonRelation> PersonRelations { get; set; } = new List<PersonRelation>();
+    public ICollection<PersonRelation> RelatedToPersons { get; set; } = new List<PersonRelation>();
     public ICollection<PhoneNumber> PhoneNumbers { get; set; } = new List<PhoneNumber>();
+    public IEnumerable<PersonRelation> AllRelations => PersonRelations.Concat(RelatedToPersons);
 }
