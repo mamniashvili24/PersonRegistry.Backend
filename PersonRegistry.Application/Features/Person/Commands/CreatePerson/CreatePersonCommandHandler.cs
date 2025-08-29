@@ -1,6 +1,7 @@
 using AutoMapper;
 using MediatR;
 using PersonRegistry.Application.Repositories;
+using PersonRegistry.Domain.Exceptions;
 
 namespace PersonRegistry.Application.Features.Person.Commands.CreatePerson;
 
@@ -24,7 +25,7 @@ public class CreatePersonCommandHandler : IRequestHandler<CreatePersonCommand>
         List<Person> personRelations = await this.personRepository.GetByIdsAsync(request.RelatedPersonIds, cancellationToken);
         if (personRelations.Count != request.RelatedPersonIds.Count)
         {
-            throw new Exception("didn't find all related persons");
+            throw new ApiException("didn't find all related persons");
         }
 
         person.PersonRelations = personRelations
