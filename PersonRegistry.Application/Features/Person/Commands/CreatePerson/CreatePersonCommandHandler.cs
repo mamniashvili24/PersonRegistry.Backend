@@ -21,6 +21,22 @@ public class CreatePersonCommandHandler : IRequestHandler<CreatePersonCommand>
     public async Task Handle(CreatePersonCommand request, CancellationToken cancellationToken)
     {
         Person person = this.mapper.Map<Person>(request);
+        List<Person> personRelations = await this.personRepository.GetByIdsAsync(request.RelatedPersonIds, cancellationToken);
+        if (personRelations.Count != request.RelatedPersonIds.Count)
+        {
+            throw new Exception("didn't find all related persons");
+        }
+
+        person.PersonRelations = personRelations
+            .Select(o =>
+                new PersonRelation
+                {
+                    PersonId = person.Id,
+                    Person = person,
+                    RelatedPersonId = o.Id,
+                    RelatedPerson = o
+                }).ToList();
+        
         await this.personRepository.AddAsync(person, cancellationToken);
     }
 }
