@@ -7,7 +7,6 @@ public class ApiExceptionMiddleware : ProblemDetailsExceptionHandler<ApiExceptio
 {
     public ApiExceptionMiddleware(IProblemDetailsService problemDetailsService)
         : base(problemDetailsService)
-    
     {
     }
 
