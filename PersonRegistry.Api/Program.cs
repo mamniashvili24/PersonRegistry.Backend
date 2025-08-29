@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using PersonRegistry.Application;
 using PersonRegistry.Persistence;
+using PersonRegistry.Persistence.Database;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services
     .AddApplication()
-    .AddPersistence();
+    .AddPersistence(builder.Configuration);
 
 WebApplication app = builder.Build();
 
