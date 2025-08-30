@@ -8,9 +8,9 @@ public class Person
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
     public required string PersonalNumber { get; set; }
-    public required string Image { get; set; }
     public required Gender Gender { get; set; }
     public required DateOnly DateOfBirth { get; set; }
+    public string? Image { get; set; }
     public required int CityId { get; set; }
     public required City City { get; set; }
     public ICollection<PersonRelation> PersonRelations { get; set; } = new List<PersonRelation>();

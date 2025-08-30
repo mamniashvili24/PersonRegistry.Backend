@@ -22,7 +22,6 @@ public class PersonConfiguration : IEntityTypeConfiguration<Person>
             .IsFixedLength();
         
         builder.Property(p => p.Image)
-            .IsRequired()
             .HasMaxLength(500);
         
         builder.Property(p => p.Gender)

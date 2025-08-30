@@ -10,9 +10,9 @@ public class PhoneNumberConfiguration : IEntityTypeConfiguration<PhoneNumber>
     {
         builder.Property(o => o.Number)
             .IsRequired()
-            .HasMaxLength(30);
+            .HasMaxLength(50);
 
-        builder.Property(o => o.PhoneNumberType)
+        builder.Property(o => o.Type)
             .IsRequired()
             .HasConversion<int>();
 
