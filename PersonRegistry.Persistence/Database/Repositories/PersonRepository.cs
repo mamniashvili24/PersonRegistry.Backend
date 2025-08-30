@@ -21,6 +21,7 @@ public class PersonRepository : BaseRepository<Person>, IPersonRepository
     public async Task<Person> FirstAsync(int id, CancellationToken cancellationToken)
     {
         return await this.dbSet
+            .Include(person => person.PhoneNumbers)
             .FirstAsync(person => person.Id == id, cancellationToken);
     }
 }

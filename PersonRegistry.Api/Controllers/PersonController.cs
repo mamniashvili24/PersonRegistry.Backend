@@ -28,9 +28,13 @@ public class PersonController : ControllerBase
         return Ok();
     }
     
-    [HttpPut]
-    public async Task<IActionResult> Put(UpdatePersonCommand command, CancellationToken cancellationToken)
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, [FromForm] UpdatePersonCommand command, [FromForm] IFormFile? image, CancellationToken cancellationToken)
     {
+        using FileContainer fileContainer = GetFileContainer(image);
+        command.Image = fileContainer;
+        command.Id = id;
+        
         await mediator.Send(command, cancellationToken);
         return Ok();
     }
