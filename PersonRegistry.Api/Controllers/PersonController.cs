@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PersonRegistry.Application.Features.Person.Commands.CreatePerson;
+using PersonRegistry.Application.Features.Person.Commands.DeletePerson;
 using PersonRegistry.Application.Features.Person.Commands.UpdatePerson;
 using PersonRegistry.Domain.Models;
 
@@ -34,6 +35,18 @@ public class PersonController : ControllerBase
         using FileContainer fileContainer = GetFileContainer(image);
         command.Image = fileContainer;
         command.Id = id;
+        
+        await mediator.Send(command, cancellationToken);
+        return Ok();
+    }
+    
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
+    {
+        DeletePersonCommand command = new()
+        {
+            Id = id
+        };
         
         await mediator.Send(command, cancellationToken);
         return Ok();
