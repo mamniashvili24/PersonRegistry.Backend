@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PersonRegistry.Application.Features.Person.Commands.CreatePerson;
+using PersonRegistry.Application.Features.Person.Commands.UpdatePerson;
 using PersonRegistry.Domain.Models;
 
 namespace PersonRegistry.Api.Controllers;
@@ -21,8 +22,16 @@ public class PersonController : ControllerBase
     {
         using FileContainer fileContainer = GetFileContainer(image);
         command.Image = fileContainer;
+        
         await mediator.Send(command, cancellationToken);
         
+        return Ok();
+    }
+    
+    [HttpPut]
+    public async Task<IActionResult> Put(UpdatePersonCommand command, CancellationToken cancellationToken)
+    {
+        await mediator.Send(command, cancellationToken);
         return Ok();
     }
 
@@ -33,9 +42,8 @@ public class PersonController : ControllerBase
 
         string fileName = file.FileName;
         string contentType = file.ContentType;
-        Stream stream = file.OpenReadStream();
         string fileExtension = Path.GetExtension(fileName);
 
-        return new FileContainer(fileName, stream, contentType, fileExtension);
+        return new FileContainer(fileName, file.OpenReadStream(), contentType, fileExtension);
     }
 }

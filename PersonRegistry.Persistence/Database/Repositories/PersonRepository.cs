@@ -17,4 +17,10 @@ public class PersonRepository : BaseRepository<Person>, IPersonRepository
             .Where(person => ids.Contains(person.Id))
             .ToListAsync(cancellationToken);
     }
+
+    public async Task<Person> FirstAsync(int id, CancellationToken cancellationToken)
+    {
+        return await this.dbSet
+            .FirstAsync(person => person.Id == id, cancellationToken);
+    }
 }

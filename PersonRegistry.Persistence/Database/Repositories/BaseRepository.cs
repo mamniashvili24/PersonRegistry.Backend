@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using PersonRegistry.Application.Repositories;
 using PersonRegistry.Domain.Entities;
 
 namespace PersonRegistry.Persistence.Database.Repositories;
 
-public class BaseRepository<TEntity> where TEntity : class
+public abstract class BaseRepository<TEntity> where TEntity : class
 {
     protected readonly PersonRegistryDbContext context;
     protected readonly DbSet<TEntity> dbSet;
@@ -20,9 +21,13 @@ public class BaseRepository<TEntity> where TEntity : class
         await this.context.SaveChangesAsync(cancellationToken);
     }
     
-    public virtual async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken)
+    public virtual async Task UpdateAsync(TEntity entity, bool beginTracking, CancellationToken cancellationToken)
     {
-        this.dbSet.Update(entity);
+        if (beginTracking)
+        {
+            this.dbSet.Update(entity);
+        }
+        
         await this.context.SaveChangesAsync(cancellationToken);
     }
     
